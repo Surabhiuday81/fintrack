@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <script defer src="/navbar.js"></script>
+  <script defer src="/expenses.js"></script>
+  <style>
+    .intro-section {
+      background: linear-gradient(to right, #4e73df, #1cc88a);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+    .intro-section h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .intro-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    .intro-section .btn {
+      font-size: 1.1rem;
+      padding: 12px 30px;
+      border-radius: 25px;
+      background-color: #ffffff;
+      color: #1cc88a;
+      border: 2px solid #1cc88a;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .intro-section .btn:hover {
+      transform: scale(1.08);
+      background-color: #1cc88a;
+      color: white;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="/">FinTrack</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><span class="nav-link" id="navbar-username"></span></li>
+          <li class="nav-item"><button class="btn btn-light btn-sm me-2" id="signout-button" style="display: none;">Sign Out</button></li>
+          <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm" id="login-signup-link" href="/login-signup">Login/Signup</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Intro Section -->
+  <div class="intro-section">
+    <h1>Welcome to FinTrack Expense Tracker</h1>
+    <p>Track your expenses effortlessly and gain insights into your spending habits. Our platform helps you manage your finances with ease, ensuring you stay on top of your financial goals.</p>
+    <a href="#expense-form-container" class="btn btn-light text-primary fw-bold">Start Tracking Your Expenses</a>
+  </div>
+
+  <main class="container mt-4 flex-grow-1">
+    <h1 class="text-center mb-4 fw-bold">Expense Tracker</h1>
+
+    <div id="expense-form-container" style="display: none;">
+      <div class="card shadow-lg p-4">
+        <h3 class="text-center mb-4">Add a New Expense</h3>
+        <form id="expense-form" class="row g-3">
+          <div class="col-md-6">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" class="form-control" placeholder="Enter expense title" required />
+          </div>
+          <div class="col-md-6">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" id="amount" class="form-control" placeholder="Enter amount" required />
+          </div>
+          <div class="col-md-6">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control" required />
+          </div>
+          <div class="col-md-6">
+            <label for="category" class="form-label">Category</label>
+            <select id="category" class="form-select">
+              <option value="Food">Food</option>
+              <option value="Travel">Travel</option>
+              <option value="Bills">Bills</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="col-12 text-center">
+            <button class="btn btn-primary w-50" type="submit">Add Expense</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="expense-report-container" class="mt-5" style="display: none;">
+      <h2 class="text-center mb-4 fw-bold">Expense Report</h2>
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="card text-center border-primary">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Total Expenses</h5>
+              <p id="total-expenses" class="card-text fs-4 fw-bold">$0</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center border-success">
+            <div class="card-body">
+              <h5 class="card-title text-success">Daily Expenses</h5>
+              <p id="daily-expenses" class="card-text fs-4 fw-bold">$0</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center border-warning">
+            <div class="card-body">
+              <h5 class="card-title text-warning">Weekly Expenses</h5>
+              <p id="weekly-expenses" class="card-text fs-4 fw-bold">$0</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center border-info">
+            <div class="card-body">
+              <h5 class="card-title text-info">Monthly Expenses</h5>
+              <p id="monthly-expenses" class="card-text fs-4 fw-bold">$0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center bg-primary text-white py-3 shadow mt-5">
+    <p>&copy; 2024 FinTrack. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
